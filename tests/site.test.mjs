@@ -6,13 +6,17 @@ import { renderArticle, renderSite } from '../src/render.mjs';
 const data = JSON.parse(await readFile(new URL('../content/site.json', import.meta.url), 'utf8'));
 const html = renderSite(data);
 
-test('each section link has a rendered target and optional event sections stay hidden', () => {
+test('each navigation link has a target and event sections have no sample entries', () => {
   const ids = Array.from(html.matchAll(/href="#([a-z-]+)"/g), match => match[1]);
   for (const id of ids) assert.match(html, new RegExp('id="' + id + '"'));
-  assert.doesNotMatch(html, /id="(?:talks|reports)"/);
+  for (const section of ['Talks', 'Reports']) {
+    assert.match(html, new RegExp(`href="#${section.toLowerCase()}">${section}`));
+    assert.match(html, new RegExp(`>${section}</h2>\\s*<div class="chapter-body"></div>`));
+  }
   assert.match(html, /href="#writing" class="writing-nav-link"/);
   assert.match(html, /id="writing-title">Writing<img[^>]+src="images\/writing\/usagi\.png"/);
-  assert.match(html, /<p class="writing-empty">No posts yet\.<\/p>/);
+  assert.match(html, /href="writing\/homepage-refresh\.html"/);
+  assert.match(renderSite({ ...data, writing: [] }), /<p class="writing-empty">No posts yet\.<\/p>/);
   assert.doesNotMatch(html, /acknowledgement\.html/);
   const withTalk = renderSite({ ...data, talks: [{ title: 'Invited talk', date: '2026-11-24', url: 'https://example.com/talk' }] });
   assert.match(withTalk, /href="#talks"/);

@@ -202,7 +202,7 @@ export function renderSite(site) {
   }
   add('writing', 'Writing', writing(site));
   for (const [id, label] of [['talks', 'Talks'], ['reports', 'Reports']]) {
-    if (site[id]?.length) add(id, label, datedList(site[id]));
+    add(id, label, site[id]?.length ? datedList(site[id]) : '');
   }
   if (site.reviewer.length) {
     add('service', 'Academic Service', `<h3 class="subheading">Reviewer</h3><ul class="service-list">${site.reviewer
