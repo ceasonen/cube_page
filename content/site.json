@@ -358,15 +358,6 @@
   ],
   "talks": [],
   "reports": [],
-  "writing": [
-    {
-      "title": "Acknowledgement",
-      "date": "2026-03-17",
-      "slug": "acknowledgement",
-      "paragraphs": [
-        "Thanks to [Yuqing Xie](https://yqxie99.github.io/) and [Kun Chen](https://kwen-chen.github.io/) for helping build the writing section of this site."
-      ]
-    }
-  ],
+  "writing": [],
   "writingAvatar": "images/writing/usagi.png"
 }

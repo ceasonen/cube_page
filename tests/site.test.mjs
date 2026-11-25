@@ -9,7 +9,7 @@ const html = renderSite(data);
 test('each section link has a rendered target and empty sections stay hidden', () => {
   const ids = Array.from(html.matchAll(/href="#([a-z-]+)"/g), match => match[1]);
   for (const id of ids) assert.match(html, new RegExp('id="' + id + '"'));
-  assert.doesNotMatch(html, /id="(?:talks|reports)"/);
+  assert.doesNotMatch(html, /id="(?:talks|reports|writing)"/);
   const withTalk = renderSite({ ...data, talks: [{ title: 'Invited talk', date: '2026-11-24', url: 'https://example.com/talk' }] });
   assert.match(withTalk, /href="#talks"/);
   assert.match(withTalk, /id="talks"/);
@@ -32,12 +32,18 @@ test('all local page assets exist under the public directory', async () => {
 });
 
 test('writing links to a focused article with the shared theme control', () => {
-  const post = data.writing[0];
+  const post = {
+    title: 'Example article',
+    date: '2026-01-01',
+    slug: 'example-article',
+    paragraphs: ['Read the [source](https://example.com/).'],
+  };
   const article = renderArticle(data, post);
-  assert.match(html, /href="writing\/acknowledgement\.html"/);
-  assert.match(html, /<a href="#writing"><img[^>]+src="images\/writing\/usagi\.png"/);
+  const homeWithWriting = renderSite({ ...data, writing: [post] });
+  assert.match(homeWithWriting, /href="writing\/example-article\.html"/);
+  assert.match(homeWithWriting, /<a href="#writing"><img[^>]+src="images\/writing\/usagi\.png"/);
   assert.match(article, /href="\.\.\/#writing"/);
-  assert.match(article, /<h1>Acknowledgement<\/h1>/);
+  assert.match(article, /<h1>Example article<\/h1>/);
   assert.match(article, /<div class="reading-prose"><p>.*<a href="https:\/\//);
   for (const page of [html, article]) assert.match(page, /data-tone-input/);
   assert.throws(() => renderSite({ ...data, writing: [{ ...post, paragraphs: [] }] }), /Missing content/);
