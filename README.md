@@ -22,7 +22,7 @@ Open `http://localhost:8000/`. Open `dist/index.html` directly if you only want 
 | --- | --- |
 | Profile, email, social links and CV URLs | `content/site.json` |
 | News, experience, publication credits, projects and awards | `content/site.json` |
-| Writing, talks and reports | Fill the matching arrays in `content/site.json` |
+| Writing, talks and reports | Use the matching arrays in `content/site.json`. For a writing entry, give a `slug` and `paragraphs` to generate an article, or a `url` to link elsewhere. |
 | Portrait, logos, browser icon and paper figures | `public/images/` |
 | Type, spacing and visual styles | `public/style.css` |
 | HTML structure | `src/render.mjs` |
@@ -30,6 +30,10 @@ Open `http://localhost:8000/`. Open `dist/index.html` directly if you only want 
 Dates in the news and writing arrays use `YYYY-MM-DD`. News is displayed in the order given, with the first four entries visible. Empty sections are omitted from the page and navigation. Set the site URL in the content file to the address where your copy is hosted.
 
 The included workflow builds and tests the site before publishing. In a new repository, select **Settings → Pages → GitHub Actions** as the publishing source. The workflow publishes the `dist/` directory and supports a repository subpath.
+
+The hue dial adjusts the accent, rules and page background. Visitors can drag it or use the arrow keys on the Hue control. The setting stays in their browser, with a reset button in the panel.
+
+The example’s Writing avatar is [Usagi from the official Chiikawa anime site](https://www.anime-chiikawa.jp/). Replace `writingAvatar` in `content/site.json` with your own image for a different site. Character artwork belongs to its respective rights holders.
 
 ## Design references
 

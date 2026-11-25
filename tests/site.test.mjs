@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import test from 'node:test';
-import { renderSite } from '../src/render.mjs';
+import { renderArticle, renderSite } from '../src/render.mjs';
 
 const data = JSON.parse(await readFile(new URL('../content/site.json', import.meta.url), 'utf8'));
 const html = renderSite(data);
@@ -27,8 +27,20 @@ test('all project websites, CV links and the email action are present', () => {
 });
 
 test('all local page assets exist under the public directory', async () => {
-  const references = Array.from(html.matchAll(/(?:src|href)="(images\/[^"]+|style\.css)"/g), match => match[1]);
+  const references = Array.from(html.matchAll(/(?:src|href)="(images\/[^"]+|(?:style|tone)\.css|tone\.js)"/g), match => match[1]);
   await Promise.all(references.map(path => access(new URL('../public/' + path, import.meta.url))));
+});
+
+test('writing links to a focused article with the shared theme control', () => {
+  const post = data.writing[0];
+  const article = renderArticle(data, post);
+  assert.match(html, /href="writing\/acknowledgement\.html"/);
+  assert.match(html, /<a href="#writing"><img[^>]+src="images\/writing\/usagi\.png"/);
+  assert.match(article, /href="\.\.\/#writing"/);
+  assert.match(article, /<h1>Acknowledgement<\/h1>/);
+  assert.match(article, /<div class="reading-prose"><p>.*<a href="https:\/\//);
+  for (const page of [html, article]) assert.match(page, /data-tone-input/);
+  assert.throws(() => renderSite({ ...data, writing: [{ ...post, paragraphs: [] }] }), /Missing content/);
 });
 
 test('edited content is escaped and script URLs are rejected', () => {
