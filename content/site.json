@@ -157,8 +157,8 @@
   ],
   "projects": [
     {
-      "name": "Auditing Transfer from Visual QA to Image Generation",
-      "description": "Paired counting and spatial evaluations across six unified multimodal models.",
+      "name": "Transfer Audit",
+      "description": "Counting and spatial tests across six multimodal models.",
       "url": "https://ceasonen.github.io/umm_audit/",
       "code": "https://github.com/ceasonen/umm_audit"
     },

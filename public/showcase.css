@@ -108,3 +108,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .spotlight.style1 .writing-image img { inline-size: 9rem; }
   .banner .content > p:not(.major) { font-size: 1.04rem; }
 }
+
+@media (min-width: 737px) {
+  .banner.style1 .content { padding-block: clamp(2.6rem, 6vw, 5rem); }
+}
+.banner .actions .button { padding-inline: 1.35rem; }
