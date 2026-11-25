@@ -119,12 +119,15 @@ function writingImage(site, classes, prefix = '') {
 
 function writing(site) {
   if (!site.writing?.length) return '<p class="writing-empty">No posts yet.</p>';
-  return `<ul class="writing-list">${site.writing.map(post => `<li>
-    <a class="writing-entry${site.writingAvatar ? ' has-avatar' : ''}" href="${href(postUrl(post))}">
-      ${writingImage(site, 'writing-avatar')}
+  const posts = site.writing.toSorted((first, second) => second.date.localeCompare(first.date));
+  return `<ul class="writing-list">${posts.map(post => {
+    const url = href(postUrl(post));
+    const target = /^(https?:\/\/|mailto:)/i.test(url) ? url : '../' + url;
+    return `<li><a class="writing-entry" href="${target}">
       <span>${escapeText(post.title)}</span>
       <time datetime="${escapeText(post.date)}">${dateLabel(post.date)}</time>
-    </a></li>`).join('')}</ul>`;
+    </a></li>`;
+  }).join('')}</ul>`;
 }
 
 function linkedProse(text) {
@@ -137,11 +140,12 @@ function linkedProse(text) {
   return markup + inlineEmphasis(text.slice(start));
 }
 
-export function renderArticle(site, post) {
-  const title = escapeText(post.title);
+function readingPage(site, pageTitle, content, isArchive = false) {
+  const title = escapeText(pageTitle);
   const author = escapeText(site.name);
-  const date = new Intl.DateTimeFormat('en', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})
-    .format(new Date(post.date + 'T00:00:00Z'));
+  const back = isArchive
+    ? '<a class="writing-back" href="../">← Home</a>'
+    : `<a class="writing-back" href="../writing/">${writingImage(site, 'writing-nav-avatar', '../')}Writing</a>`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -149,26 +153,20 @@ export function renderArticle(site, post) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title} · ${author}</title>
   <link rel="icon" href="../images/cube.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css?v=20261126-writing-index">
   <link rel="stylesheet" href="../tone.css">
 </head>
 <body class="reading-page">
   <a class="skip-link" href="#article">Skip to content</a>
   <header class="masthead">
-    <nav class="wrap masthead-inner" aria-label="Article navigation">
+    <nav class="wrap masthead-inner" aria-label="Writing navigation">
       <a class="brand" href="../#about"><img src="../images/cube.svg" alt="" width="23" height="23"><span>${author}</span></a>
-      <a class="writing-back" href="../#writing">${writingImage(site, 'writing-nav-avatar', '../')}Writing</a>
+      ${back}
       ${toneControl}
     </nav>
   </header>
   <main id="article" class="reading-shell">
-    <article>
-      <header class="reading-heading">
-        <h1>${title}</h1>
-        <p class="reading-byline"><span>${author}</span><time datetime="${escapeText(post.date)}">${escapeText(date)}</time></p>
-      </header>
-      <div class="reading-prose">${post.paragraphs.map(text => '<p>' + linkedProse(text) + '</p>').join('')}</div>
-    </article>
+    ${content}
   </main>
   <script src="../tone.js" defer></script>
 </body>
@@ -176,12 +174,35 @@ export function renderArticle(site, post) {
 `;
 }
 
+export function renderWritingIndex(site) {
+  return readingPage(site, 'Writing', `
+    ${writingImage(site, 'reading-watermark', '../')}
+    <section class="writing-archive" aria-labelledby="writing-title">
+      <header class="reading-heading"><h1 id="writing-title">Writing</h1></header>
+      ${writing(site)}
+    </section>`, true);
+}
+
+export function renderArticle(site, post) {
+  const date = new Intl.DateTimeFormat('en', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})
+    .format(new Date(post.date + 'T00:00:00Z'));
+  return readingPage(site, post.title, `
+    <article>
+      <header class="reading-heading">
+        <h1>${escapeText(post.title)}</h1>
+        <p class="reading-byline"><span>${escapeText(site.name)}</span><time datetime="${escapeText(post.date)}">${escapeText(date)}</time></p>
+      </header>
+      <div class="reading-prose">${post.paragraphs.map(text => '<p>' + linkedProse(text) + '</p>').join('')}</div>
+    </article>`);
+}
+
 export function renderSite(site) {
   const chapters = [];
   function add(id, label, body, navLabel = label) {
     const isWriting = id === 'writing';
     const avatar = isWriting ? writingImage(site, 'writing-nav-avatar') : '';
-    const nav = `<a href="#${id}"${isWriting ? ' class="writing-nav-link"' : ''}>${avatar}${escapeText(navLabel)}</a>`;
+    const destination = isWriting ? 'writing/' : '#' + id;
+    const nav = `<a href="${destination}"${isWriting ? ' class="writing-nav-link"' : ''}>${avatar}${escapeText(navLabel)}</a>`;
     const decoration = isWriting ? writingImage(site, 'writing-heading-avatar') : (id === 'projects' ? emoji('🛠️') : '');
     chapters.push({ nav, html: section(id, label, body, decoration) });
   }
@@ -200,7 +221,7 @@ export function renderSite(site) {
     add('publications', 'Publications', legend + papers(publications, site.name) +
       (preprints.length ? '<h3 class="subheading paper-group">Preprints</h3>' + papers(preprints, site.name) : ''));
   }
-  add('writing', 'Writing', writing(site));
+  add('writing', 'Writing', '<a class="writing-button" href="writing/">View all posts <span aria-hidden="true">→</span></a>');
   for (const [id, label] of [['talks', 'Talks'], ['reports', 'Reports']]) {
     add(id, label, site[id]?.length ? datedList(site[id]) : '');
   }

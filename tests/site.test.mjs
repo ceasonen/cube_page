@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
 import test from 'node:test';
-import { renderArticle, renderSite } from '../src/render.mjs';
+import { renderArticle, renderSite, renderWritingIndex } from '../src/render.mjs';
 
 const data = JSON.parse(await readFile(new URL('../content/site.json', import.meta.url), 'utf8'));
 const html = renderSite(data);
@@ -13,10 +13,11 @@ test('each navigation link has a target and event sections have no sample entrie
     assert.match(html, new RegExp(`href="#${section.toLowerCase()}">${section}`));
     assert.match(html, new RegExp(`>${section}</h2>\\s*<div class="chapter-body"></div>`));
   }
-  assert.match(html, /href="#writing" class="writing-nav-link"/);
+  assert.match(html, /href="writing\/" class="writing-nav-link"/);
   assert.match(html, /id="writing-title">Writing<img[^>]+src="images\/writing\/usagi\.png"/);
-  assert.match(html, /href="writing\/homepage-refresh\.html"/);
-  assert.match(renderSite({ ...data, writing: [] }), /<p class="writing-empty">No posts yet\.<\/p>/);
+  assert.match(html, /class="writing-button" href="writing\/">/);
+  assert.match(renderWritingIndex(data), /href="\.\.\/writing\/homepage-refresh\.html"/);
+  assert.match(renderWritingIndex({ ...data, writing: [] }), /<p class="writing-empty">No posts yet\.<\/p>/);
   assert.doesNotMatch(html, /acknowledgement\.html/);
   const withTalk = renderSite({ ...data, talks: [{ title: 'Invited talk', date: '2026-11-24', url: 'https://example.com/talk' }] });
   assert.match(withTalk, /href="#talks"/);
@@ -63,14 +64,21 @@ test('writing links to a focused article with the shared theme control', () => {
     paragraphs: ['Read the [source](https://example.com/).'],
   };
   const article = renderArticle(data, post);
-  const homeWithWriting = renderSite({ ...data, writing: [post] });
-  assert.match(homeWithWriting, /href="writing\/example-article\.html"/);
-  assert.match(homeWithWriting, /<a href="#writing" class="writing-nav-link"><img[^>]+src="images\/writing\/usagi\.png"/);
-  assert.match(article, /href="\.\.\/#writing"/);
+  const archive = renderWritingIndex({ ...data, writing: [
+    post,
+    { title: 'External post', date: '2026-02-01', url: 'https://example.com/post' },
+  ] });
+  assert.match(archive, /class="reading-watermark" src="\.\.\/images\/writing\/usagi\.png"[^>]*alt=""/);
+  assert.match(archive, /href="https:\/\/example\.com\/post"[^]*href="\.\.\/writing\/example-article\.html"/);
+  assert.doesNotMatch(renderWritingIndex({ ...data, writingAvatar: undefined }), /reading-watermark/);
+  assert.doesNotMatch(html, /reading-watermark/);
+  assert.doesNotMatch(article, /reading-watermark/);
+  assert.match(article, /href="\.\.\/writing\/"/);
   assert.match(article, /<h1>Example article<\/h1>/);
   assert.match(article, /<div class="reading-prose"><p>.*<a href="https:\/\//);
-  for (const page of [html, article]) assert.match(page, /data-tone-input/);
-  assert.throws(() => renderSite({ ...data, writing: [{ ...post, paragraphs: [] }] }), /Missing content/);
+  for (const page of [html, archive, article]) assert.match(page, /data-tone-input/);
+  assert.throws(() => renderWritingIndex({ ...data, writing: [{ ...post, paragraphs: [] }] }), /Missing content/);
+
 });
 
 test('edited content is escaped and script URLs are rejected', () => {

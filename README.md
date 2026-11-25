@@ -27,7 +27,7 @@ Open `http://localhost:8000/`. Open `dist/index.html` directly if you only want 
 | Type, spacing and visual styles | `public/style.css` |
 | HTML structure | `src/render.mjs` |
 
-Dates in the news and writing arrays use `YYYY-MM-DD`. News is sorted newest first in a scrollable panel. A news entry can include an optional `emoji`. Writing stays visible when empty. Talks and Reports show their headings with space for future entries. Set the site URL in the content file to the address where your copy is hosted.
+Dates in the news and writing arrays use `YYYY-MM-DD`. News is sorted newest first in a scrollable panel. A news entry can include an optional `emoji`. The Writing button opens the full post list at `writing/`, including when the list is empty. Talks and Reports show their headings with space for future entries. Set the site URL in the content file to the address where your copy is hosted.
 
 The included workflow builds and tests the site before publishing. In a new repository, select **Settings → Pages → GitHub Actions** as the publishing source. The workflow publishes the `dist/` directory and supports a repository subpath.
 
