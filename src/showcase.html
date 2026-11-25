@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cube Page is an open-source academic homepage template for your research, projects, and writing.">
+  <meta name="theme-color" content="#f9f8fc">
+  <title>Cube Page · Academic Homepage Template</title>
+  <link rel="icon" href="images/cube.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="showcase.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <nav class="contain topbar-inner" aria-label="Product navigation">
+      <a class="brand" href="./"><img src="images/cube.svg" width="29" height="29" alt="">Cube Page</a>
+      <div class="nav-links">
+        <a href="#design">Design</a>
+        <a href="#setup">Setup</a>
+        <a href="https://github.com/ceasonen/cube_page">GitHub</a>
+      </div>
+      <a class="button button-small" href="demo/">Live demo <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero contain" aria-labelledby="hero-title">
+      <header class="hero-copy">
+        <h1 id="hero-title">Cube Page</h1>
+        <p class="hero-line">A home for your research.</p>
+        <p class="hero-description">An open-source academic homepage template for papers, projects, and writing.</p>
+        <div class="actions">
+          <a class="button" href="demo/">Explore the demo <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="https://github.com/ceasonen/cube_page">Get the template <span aria-hidden="true">→</span></a>
+        </div>
+      </header>
+
+      <figure class="stage">
+        <a class="demo-frame" href="demo/" aria-label="Open the live academic homepage preview">
+          <picture>
+            <source media="(max-width: 640px)" srcset="images/demo-preview-mobile.jpg">
+            <img src="images/demo-preview.jpg" width="1300" height="866" alt="The Cube Page demo with a profile on the left and the introduction, news, and experience on the right" fetchpriority="high">
+          </picture>
+        </a>
+      </figure>
+    </section>
+
+    <section class="contain design" id="design" aria-labelledby="design-title">
+      <h2 id="design-title">Designed around your work.</h2>
+      <div class="feature-grid">
+        <section class="feature palette-card" aria-labelledby="palette-title">
+          <header>
+            <h3 id="palette-title">Make it yours.</h3>
+            <p>Pick an accent that feels right. The demo saves your color choice in the browser.</p>
+          </header>
+          <fieldset class="palette-picker">
+            <legend>Preview an accent color</legend>
+            <div class="swatches">
+              <input id="indigo" type="radio" name="palette" checked><label for="indigo">Indigo</label>
+              <input id="moss" type="radio" name="palette"><label for="moss">Moss</label>
+              <input id="rose" type="radio" name="palette"><label for="rose">Rose</label>
+            </div>
+          </fieldset>
+          <div class="palette-sample" aria-hidden="true">
+            <div class="sample-top"><img src="images/cube.svg" width="23" height="23" alt=""><span>Publications</span></div>
+            <span class="sample-accent"></span>
+            <span class="sample-line"></span>
+            <span class="sample-line short"></span>
+          </div>
+        </section>
+
+        <section class="feature feature-writing" aria-labelledby="feature-writing-title">
+          <header>
+            <h3 id="feature-writing-title">A place to write.</h3>
+            <p>Give notes and essays a dedicated archive. New articles appear there by date.</p>
+          </header>
+          <a class="text-link" href="writing/">See the writing archive <span aria-hidden="true">→</span></a>
+          <img src="images/writing/usagi.png" width="318" height="319" alt="" loading="lazy">
+        </section>
+      </div>
+    </section>
+
+    <section class="contain setup" id="setup" aria-labelledby="setup-title">
+      <div>
+        <h2 id="setup-title">From a fork to a homepage.</h2>
+        <p>Edit your profile, papers, and links in <code>content/site.json</code>. Build the site and publish it with GitHub Pages.</p>
+        <a class="text-link" href="https://github.com/ceasonen/cube_page#make-it-yours">Read the setup guide <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="build-panel">
+        <p>Build your homepage</p>
+        <pre><code>npm run build:site</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contain footer">
+    <span>Cube Page by <a href="https://ceasonen.github.io/">Cheng Chen</a></span>
+    <a href="https://github.com/ceasonen/cube_page">Source on GitHub</a>
+  </footer>
+</body>
+</html>

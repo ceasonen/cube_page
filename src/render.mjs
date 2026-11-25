@@ -110,11 +110,14 @@ function postUrl(post) {
   return 'writing/' + post.slug + '.html';
 }
 
+function imageSource(asset, prefix) {
+  const source = href(asset);
+  return /^https?:\/\//i.test(source) ? source : prefix + source;
+}
+
 function writingImage(site, classes, prefix = '') {
   if (!site.writingAvatar) return '';
-  const value = href(site.writingAvatar);
-  const source = /^https?:\/\//i.test(value) ? value : prefix + value;
-  return `<img class="${classes}" src="${source}" width="48" height="48" alt="">`;
+  return `<img class="${classes}" src="${imageSource(site.writingAvatar, prefix)}" width="48" height="48" alt="">`;
 }
 
 function writing(site) {
@@ -140,11 +143,12 @@ function linkedProse(text) {
   return markup + inlineEmphasis(text.slice(start));
 }
 
-function readingPage(site, pageTitle, content, isArchive = false) {
+function readingPage(site, pageTitle, content, { isArchive = false, demo = false } = {}) {
   const title = escapeText(pageTitle);
   const author = escapeText(site.name);
+  const home = demo ? '../demo/' : '../';
   const back = isArchive
-    ? '<a class="writing-back" href="../">← Home</a>'
+    ? `<a class="writing-back" href="${home}">← Home</a>`
     : `<a class="writing-back" href="../writing/">${writingImage(site, 'writing-nav-avatar', '../')}Writing</a>`;
   return `<!doctype html>
 <html lang="en">
@@ -153,14 +157,14 @@ function readingPage(site, pageTitle, content, isArchive = false) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title} · ${author}</title>
   <link rel="icon" href="../images/cube.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../style.css?v=20261126-writing-index">
+  <link rel="stylesheet" href="../style.css?v=20261126-usagi-trio">
   <link rel="stylesheet" href="../tone.css">
 </head>
 <body class="reading-page">
   <a class="skip-link" href="#article">Skip to content</a>
   <header class="masthead">
     <nav class="wrap masthead-inner" aria-label="Writing navigation">
-      <a class="brand" href="../#about"><img src="../images/cube.svg" alt="" width="23" height="23"><span>${author}</span></a>
+      <a class="brand" href="${home}#about"><img src="../images/cube.svg" alt="" width="23" height="23"><span>${author}</span></a>
       ${back}
       ${toneControl}
     </nav>
@@ -174,16 +178,21 @@ function readingPage(site, pageTitle, content, isArchive = false) {
 `;
 }
 
-export function renderWritingIndex(site) {
+export function renderWritingIndex(site, options = {}) {
+  const sprite = site.writingRideSprite ? imageSource(site.writingRideSprite, '../') : '';
+  const rides = sprite ? ['left', 'bottom'].map(position => `
+    <span class="reading-watermark reading-watermark--ride reading-watermark--${position}" aria-hidden="true">
+      <img src="${sprite}" width="634" height="415" alt="">
+    </span>`).join('') : '';
   return readingPage(site, 'Writing', `
-    ${writingImage(site, 'reading-watermark', '../')}
+    ${writingImage(site, 'reading-watermark', '../')}${rides}
     <section class="writing-archive" aria-labelledby="writing-title">
       <header class="reading-heading"><h1 id="writing-title">Writing</h1></header>
       ${writing(site)}
-    </section>`, true);
+    </section>`, { ...options, isArchive: true });
 }
 
-export function renderArticle(site, post) {
+export function renderArticle(site, post, options = {}) {
   const date = new Intl.DateTimeFormat('en', {month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})
     .format(new Date(post.date + 'T00:00:00Z'));
   return readingPage(site, post.title, `
@@ -193,15 +202,16 @@ export function renderArticle(site, post) {
         <p class="reading-byline"><span>${escapeText(site.name)}</span><time datetime="${escapeText(post.date)}">${escapeText(date)}</time></p>
       </header>
       <div class="reading-prose">${post.paragraphs.map(text => '<p>' + linkedProse(text) + '</p>').join('')}</div>
-    </article>`);
+    </article>`, options);
 }
 
-export function renderSite(site) {
+export function renderSite(site, { demo = false } = {}) {
+  const anchor = id => (demo ? 'demo/' : '') + '#' + id;
   const chapters = [];
   function add(id, label, body, navLabel = label) {
     const isWriting = id === 'writing';
     const avatar = isWriting ? writingImage(site, 'writing-nav-avatar') : '';
-    const destination = isWriting ? 'writing/' : '#' + id;
+    const destination = isWriting ? 'writing/' : anchor(id);
     const nav = `<a href="${destination}"${isWriting ? ' class="writing-nav-link"' : ''}>${avatar}${escapeText(navLabel)}</a>`;
     const decoration = isWriting ? writingImage(site, 'writing-heading-avatar') : (id === 'projects' ? emoji('🛠️') : '');
     chapters.push({ nav, html: section(id, label, body, decoration) });
@@ -250,7 +260,8 @@ export function renderSite(site) {
   <meta property="og:title" content="${name}">
   <meta property="og:description" content="${escapeText(site.description)}">
   <title>${name}</title>
-  ${site.url ? `<link rel="canonical" href="${href(site.url)}">` : ''}
+  ${demo ? '<base href="../">' : ''}
+  ${site.url ? `<link rel="canonical" href="${href(demo ? new URL('demo/', site.url).href : site.url)}">` : ''}
   <link rel="icon" href="images/cube.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/caveat-bold.woff2" as="font" type="font/woff2" crossorigin>
@@ -259,11 +270,11 @@ export function renderSite(site) {
   <link rel="stylesheet" href="tone.css">
 </head>
 <body>
-  <a class="skip-link" href="#about">Skip to content</a>
+  <a class="skip-link" href="${anchor('about')}">Skip to content</a>
   <header class="masthead">
     <div class="wrap masthead-inner">
-      <a class="brand" href="#about" aria-label="${name} · Homepage"><img src="images/cube.svg" alt="" width="36" height="36"></a>
-      <nav class="site-nav" aria-label="Sections"><a href="#about">About</a>${chapters.map(item => item.nav).join('')}</nav>
+      <a class="brand" href="${anchor('about')}" aria-label="${name} · Homepage"><img src="images/cube.svg" alt="" width="36" height="36"></a>
+      <nav class="site-nav" aria-label="Sections"><a href="${anchor('about')}">About</a>${chapters.map(item => item.nav).join('')}</nav>
       ${cvs ? `<nav class="cv-nav" aria-label="Curriculum vitae">${cvs}</nav>` : ''}
       ${toneControl}
     </div>
@@ -290,8 +301,8 @@ export function renderSite(site) {
   </div>
   <footer class="wrap footer">
     <span>${name}</span>
-    <a href="https://github.com/ceasonen/cube_page">Cube Page</a>
-    <a href="#about">Back to top</a>
+    <a href="${demo ? './' : 'https://github.com/ceasonen/cube_page'}">Cube Page</a>
+    <a href="${anchor('about')}">Back to top</a>
   </footer>
   <script src="tone.js" defer></script>
 </body>

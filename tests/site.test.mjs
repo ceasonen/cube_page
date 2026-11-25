@@ -69,8 +69,9 @@ test('writing links to a focused article with the shared theme control', () => {
     { title: 'External post', date: '2026-02-01', url: 'https://example.com/post' },
   ] });
   assert.match(archive, /class="reading-watermark" src="\.\.\/images\/writing\/usagi\.png"[^>]*alt=""/);
+  assert.equal((archive.match(/src="\.\.\/images\/writing\/usagi-ride\.png"/g) || []).length, 2);
   assert.match(archive, /href="https:\/\/example\.com\/post"[^]*href="\.\.\/writing\/example-article\.html"/);
-  assert.doesNotMatch(renderWritingIndex({ ...data, writingAvatar: undefined }), /reading-watermark/);
+  assert.doesNotMatch(renderWritingIndex({ ...data, writingAvatar: undefined, writingRideSprite: undefined }), /reading-watermark/);
   assert.doesNotMatch(html, /reading-watermark/);
   assert.doesNotMatch(article, /reading-watermark/);
   assert.match(article, /href="\.\.\/writing\/"/);
@@ -79,6 +80,19 @@ test('writing links to a focused article with the shared theme control', () => {
   for (const page of [html, archive, article]) assert.match(page, /data-tone-input/);
   assert.throws(() => renderWritingIndex({ ...data, writing: [{ ...post, paragraphs: [] }] }), /Missing content/);
 
+});
+
+test('the showcase and its demo keep independent routes', async () => {
+  const showcase = await readFile(new URL('../src/showcase.html', import.meta.url), 'utf8');
+  assert.match(showcase, /<h1 id="hero-title">Cube Page<\/h1>/);
+  assert.match(showcase, /href="demo\/"/);
+  assert.match(showcase, /href="writing\/"/);
+  const demo = renderSite(data, { demo: true });
+  assert.match(demo, /<base href="\.\.\/">/);
+  assert.match(demo, /href="demo\/#news"/);
+  assert.match(demo, /href="writing\/" class="writing-nav-link"/);
+  assert.match(renderWritingIndex(data, { demo: true }), /class="writing-back" href="\.\.\/demo\/"/);
+  assert.doesNotMatch(html, /<base/);
 });
 
 test('edited content is escaped and script URLs are rejected', () => {

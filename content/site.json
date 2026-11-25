@@ -383,5 +383,6 @@
       ]
     }
   ],
-  "writingAvatar": "images/writing/usagi.png"
+  "writingAvatar": "images/writing/usagi.png",
+  "writingRideSprite": "images/writing/usagi-ride.png"
 }

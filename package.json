@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:site": "node scripts/build.mjs --site-only",
     "test": "node --test"
   },
   "engines": { "node": ">=22" }
