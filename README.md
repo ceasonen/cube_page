@@ -37,7 +37,7 @@ The example’s Writing avatar is [Usagi from the official Chiikawa anime site](
 
 ## Design references
 
-The project showcase takes its product-preview format from [Apple’s MacBook Air page](https://www.apple.com/macbook-air/) and its violet accents from [UMM Audit](https://ceasonen.github.io/umm_audit/).
+The project showcase uses the Banner, Spotlight, and Wrapper sections from [Story by HTML5 UP](https://html5up.net/story). Cube Page adapts the content, violet palette, and local Caveat and Comic Neue typefaces. The upstream stylesheet and [CC BY 3.0 notice](public/vendor/story/NOTICE.txt) are bundled in `public/vendor/story/`.
 
 [WowPage](https://github.com/WD7ang/WowPage) by Weidong Tang and Yue Su informed the section structure and the split between content and templates. The visual reference was [Weidong Tang’s homepage](https://wd7ang.github.io/), especially its dated updates, institutional marks and publication thumbnails. [Nielsen Norman Group’s visual hierarchy guidance](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/) informed the type scale and section spacing. Outfit is used for research and navigation, Caveat for the name and section headings, and Comic Neue for the introduction. The prose uses a constrained measure following the [W3C guidance on reflow and readability](https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation).
 

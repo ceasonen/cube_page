@@ -85,6 +85,13 @@ test('writing links to a focused article with the shared theme control', () => {
 test('the showcase and its demo keep independent routes', async () => {
   const showcase = await readFile(new URL('../src/showcase.html', import.meta.url), 'utf8');
   assert.match(showcase, /<h1 id="hero-title">Cube Page<\/h1>/);
+  assert.match(showcase, /href="vendor\/story\/main\.css"/);
+  assert.match(showcase, /class="banner style1 orient-left/);
+  assert.match(showcase, /class="spotlight style1 orient-right/);
+  assert.match(showcase, /Story by HTML5 UP/);
+  const template = await readFile(new URL('../public/vendor/story/main.css', import.meta.url), 'utf8');
+  assert.match(template, /Story by HTML5 UP/);
+  assert.match(template, /\.banner\.style1/);
   assert.match(showcase, /href="demo\/"/);
   assert.match(showcase, /href="writing\/"/);
   const demo = renderSite(data, { demo: true });
