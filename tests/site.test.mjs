@@ -6,13 +6,33 @@ import { renderArticle, renderSite } from '../src/render.mjs';
 const data = JSON.parse(await readFile(new URL('../content/site.json', import.meta.url), 'utf8'));
 const html = renderSite(data);
 
-test('each section link has a rendered target and empty sections stay hidden', () => {
+test('each section link has a rendered target and optional event sections stay hidden', () => {
   const ids = Array.from(html.matchAll(/href="#([a-z-]+)"/g), match => match[1]);
   for (const id of ids) assert.match(html, new RegExp('id="' + id + '"'));
-  assert.doesNotMatch(html, /id="(?:talks|reports|writing)"/);
+  assert.doesNotMatch(html, /id="(?:talks|reports)"/);
+  assert.match(html, /href="#writing" class="writing-nav-link"/);
+  assert.match(html, /id="writing-title">Writing<img[^>]+src="images\/writing\/usagi\.png"/);
+  assert.match(html, /<p class="writing-empty">No posts yet\.<\/p>/);
+  assert.doesNotMatch(html, /acknowledgement\.html/);
   const withTalk = renderSite({ ...data, talks: [{ title: 'Invited talk', date: '2026-11-24', url: 'https://example.com/talk' }] });
   assert.match(withTalk, /href="#talks"/);
   assert.match(withTalk, /id="talks"/);
+});
+
+test('news is a scrollable list with an emoji for each existing event type', () => {
+  assert.match(html, /class="news-window" role="group" aria-labelledby="news-title" tabindex="0"/);
+  assert.doesNotMatch(html, /Earlier updates/);
+  for (const mark of ['🎓', '🏆', '🎉']) {
+    assert.ok(html.includes(`<span class="news-emoji" aria-hidden="true">${mark}</span>`));
+  }
+  assert.match(renderSite({ ...data, news: data.news.slice().reverse() }), /2026-11-12[^]*2024-11-15/);
+});
+
+test('the education row shows the college and rank', () => {
+  const education = html.slice(html.indexOf('>Education</h3>'), html.indexOf('>Research internships</h3>'));
+  assert.match(education, /College of Electronic and Information Engineering/);
+  assert.match(education, /Major rank: 2\/85/);
+  assert.doesNotMatch(education, /B\.Eng\./);
 });
 
 test('accepted papers precede preprints and author roles render separately', () => {
@@ -27,7 +47,7 @@ test('all project websites, CV links and the email action are present', () => {
 });
 
 test('all local page assets exist under the public directory', async () => {
-  const references = Array.from(html.matchAll(/(?:src|href)="(images\/[^"]+|(?:style|tone)\.css|tone\.js)"/g), match => match[1]);
+  const references = Array.from(html.matchAll(/(?:src|href)="((?:images|fonts)\/[^"]+|(?:style|tone)\.css|tone\.js)"/g), match => match[1]);
   await Promise.all(references.map(path => access(new URL('../public/' + path, import.meta.url))));
 });
 
@@ -41,7 +61,7 @@ test('writing links to a focused article with the shared theme control', () => {
   const article = renderArticle(data, post);
   const homeWithWriting = renderSite({ ...data, writing: [post] });
   assert.match(homeWithWriting, /href="writing\/example-article\.html"/);
-  assert.match(homeWithWriting, /<a href="#writing"><img[^>]+src="images\/writing\/usagi\.png"/);
+  assert.match(homeWithWriting, /<a href="#writing" class="writing-nav-link"><img[^>]+src="images\/writing\/usagi\.png"/);
   assert.match(article, /href="\.\.\/#writing"/);
   assert.match(article, /<h1>Example article<\/h1>/);
   assert.match(article, /<div class="reading-prose"><p>.*<a href="https:\/\//);

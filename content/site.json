@@ -58,61 +58,74 @@
   "news": [
     {
       "date": "2026-11-12",
-      "text": "I was the sole recipient of the **BULL Scholarship** for **2025–2026**, CEIE’s highest-value scholarship."
+      "text": "I was the sole recipient of the **BULL Scholarship** for **2025–2026**, CEIE’s highest-value scholarship.",
+      "emoji": "🎓"
     },
     {
       "date": "2026-07-29",
-      "text": "Our team received the **National First Prize** in the **China Robot and Artificial Intelligence Competition**."
+      "text": "Our team received the **National First Prize** in the **China Robot and Artificial Intelligence Competition**.",
+      "emoji": "🏆"
     },
     {
       "date": "2026-07-10",
-      "text": "Our paper, **OV-OrthKD**, was accepted at **ACM MM 2026**. I am a co-first author."
+      "text": "Our paper, **OV-OrthKD**, was accepted at **ACM MM 2026**. I am a co-first author.",
+      "emoji": "🎉"
     },
     {
       "date": "2026-04-20",
-      "text": "Our paper, **OrthKD**, was accepted at **IJCAI 2026**. I am a co-first author."
+      "text": "Our paper, **OrthKD**, was accepted at **IJCAI 2026**. I am a co-first author.",
+      "emoji": "🎉"
     },
     {
       "date": "2026-03-15",
-      "text": "Our paper, **DeepYOLO**, was accepted to **IJCNN 2026**. I am the corresponding author."
+      "text": "Our paper, **DeepYOLO**, was accepted to **IJCNN 2026**. I am the corresponding author.",
+      "emoji": "🎉"
     },
     {
       "date": "2025-12-25",
-      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2024–2025 academic year."
+      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2024–2025 academic year.",
+      "emoji": "🎓"
     },
     {
       "date": "2025-12-20",
-      "text": "Our team received the **National Second Prize** in the **Global Campus Artificial Intelligence Algorithm Elite Competition**."
+      "text": "Our team received the **National Second Prize** in the **Global Campus Artificial Intelligence Algorithm Elite Competition**.",
+      "emoji": "🏆"
     },
     {
       "date": "2025-12-15",
-      "text": "Our team received the **National Third Prize** in the **National Undergraduate Embedded Chip and System Design Competition**."
+      "text": "Our team received the **National Third Prize** in the **National Undergraduate Embedded Chip and System Design Competition**.",
+      "emoji": "🏆"
     },
     {
       "date": "2025-11-20",
-      "text": "Our team received the **Provincial Third Prize** in the **Contemporary Undergraduate Mathematical Contest in Modeling**."
+      "text": "Our team received the **Provincial Third Prize** in the **Contemporary Undergraduate Mathematical Contest in Modeling**.",
+      "emoji": "🏆"
     },
     {
       "date": "2025-11-15",
-      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**."
+      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**.",
+      "emoji": "🏆"
     },
     {
       "date": "2025-06-15",
-      "text": "Our team received the **Provincial Third Prize** in the **National College Student Statistical Modeling Competition**."
+      "text": "Our team received the **Provincial Third Prize** in the **National College Student Statistical Modeling Competition**.",
+      "emoji": "🏆"
     },
     {
       "date": "2024-12-20",
-      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2023–2024 academic year."
+      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2023–2024 academic year.",
+      "emoji": "🎓"
     },
     {
       "date": "2024-11-15",
-      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**."
+      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**.",
+      "emoji": "🏆"
     }
   ],
   "education": [
     {
       "name": "Tongji University",
-      "role": "B.Eng. in Communication Engineering",
+      "role": "College of Electronic and Information Engineering",
       "date": "Sep. 2023 – Jun. 2027 (expected)",
       "note": "Major rank: 2/85",
       "logo": "images/marks/tongji-university.png",

@@ -27,25 +27,28 @@ function inlineEmphasis(value) {
   return escapeText(value).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 
-function section(id, label, body) {
+function section(id, label, body, decoration = '') {
   return `<section class="chapter" id="${id}" aria-labelledby="${id}-title">
-    <h2 class="chapter-title" id="${id}-title">${escapeText(label)}</h2>
+    <h2 class="chapter-title" id="${id}-title">${escapeText(label)}${decoration}</h2>
     <div class="chapter-body">${body}</div>
   </section>`;
+}
+
+function emoji(mark, className = 'heading-emoji') {
+  return mark ? `<span class="${className}" aria-hidden="true">${escapeText(mark)}</span>` : '';
 }
 
 function datedList(items) {
   return `<ul class="dated-list">${items.map(item => `<li>
       <time datetime="${escapeText(item.date)}">${dateLabel(item.date)}</time>
-      <div>${item.text ? inlineEmphasis(item.text) : link(item.title, item.url)}</div>
+      <div class="dated-event">${emoji(item.emoji, 'news-emoji')}<span>${item.text ? inlineEmphasis(item.text) : link(item.title, item.url)}</span></div>
     </li>`).join('')}</ul>`;
 }
 
 function news(items) {
-  const [visible, older] = [items.slice(0, 4), items.slice(4)];
-  return datedList(visible) + (older.length ? `<details class="archive">
-    <summary>Earlier updates</summary>${datedList(older)}
-  </details>` : '');
+  return `<div class="news-window" role="group" aria-labelledby="news-title" tabindex="0">
+    ${datedList(items.toSorted((first, second) => second.date.localeCompare(first.date)))}
+  </div>`;
 }
 
 function mark(source) {
@@ -56,7 +59,7 @@ function experience(items) {
   return `<ul class="ledger">${items.map(item => `<li class="ledger-row">
     ${mark(item.logo)}
     <div><h3>${item.url ? link(item.name, item.url) : escapeText(item.name)}</h3>
-    <p>${escapeText(item.role)}${item.note ? ` <span class="meta-note">${escapeText(item.note)}</span>` : ''}</p></div>
+    <p>${escapeText(item.role)}</p>${item.note ? `<p>${escapeText(item.note)}</p>` : ''}</div>
     <span class="row-date">${escapeText(item.date)}</span>
   </li>`).join('')}</ul>`;
 }
@@ -115,16 +118,13 @@ function writingImage(site, classes, prefix = '') {
 }
 
 function writing(site) {
+  if (!site.writing?.length) return '<p class="writing-empty">No posts yet.</p>';
   return `<ul class="writing-list">${site.writing.map(post => `<li>
     <a class="writing-entry${site.writingAvatar ? ' has-avatar' : ''}" href="${href(postUrl(post))}">
       ${writingImage(site, 'writing-avatar')}
       <span>${escapeText(post.title)}</span>
       <time datetime="${escapeText(post.date)}">${dateLabel(post.date)}</time>
     </a></li>`).join('')}</ul>`;
-}
-
-function navigationLink(id, label, image = '') {
-  return `<a href="#${id}">${image}${escapeText(label)}</a>`;
 }
 
 function linkedProse(text) {
@@ -179,8 +179,11 @@ export function renderArticle(site, post) {
 export function renderSite(site) {
   const chapters = [];
   function add(id, label, body, navLabel = label) {
-    const avatar = id === 'writing' ? writingImage(site, 'writing-nav-avatar') : '';
-    chapters.push({ nav: navigationLink(id, navLabel, avatar), html: section(id, label, body) });
+    const isWriting = id === 'writing';
+    const avatar = isWriting ? writingImage(site, 'writing-nav-avatar') : '';
+    const nav = `<a href="#${id}"${isWriting ? ' class="writing-nav-link"' : ''}>${avatar}${escapeText(navLabel)}</a>`;
+    const decoration = isWriting ? writingImage(site, 'writing-heading-avatar') : (id === 'projects' ? emoji('🛠️') : '');
+    chapters.push({ nav, html: section(id, label, body, decoration) });
   }
   if (site.news.length) add('news', 'News', news(site.news));
   if (site.education.length || site.internships.length) {
@@ -197,7 +200,7 @@ export function renderSite(site) {
     add('publications', 'Publications', legend + papers(publications, site.name) +
       (preprints.length ? '<h3 class="subheading paper-group">Preprints</h3>' + papers(preprints, site.name) : ''));
   }
-  if (site.writing?.length) add('writing', 'Writing', writing(site));
+  add('writing', 'Writing', writing(site));
   for (const [id, label] of [['talks', 'Talks'], ['reports', 'Reports']]) {
     if (site[id]?.length) add(id, label, datedList(site[id]));
   }
@@ -228,6 +231,9 @@ export function renderSite(site) {
   <title>${name}</title>
   ${site.url ? `<link rel="canonical" href="${href(site.url)}">` : ''}
   <link rel="icon" href="images/cube.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/caveat-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/comic-neue.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="tone.css">
 </head>
@@ -235,8 +241,8 @@ export function renderSite(site) {
   <a class="skip-link" href="#about">Skip to content</a>
   <header class="masthead">
     <div class="wrap masthead-inner">
-      <a class="brand" href="#about"><img src="images/cube.svg" alt="" width="23" height="23"><span>${name}</span></a>
-      <nav class="site-nav" aria-label="Sections">${chapters.map(item => item.nav).join('')}</nav>
+      <a class="brand" href="#about" aria-label="${name} · Homepage"><img src="images/cube.svg" alt="" width="36" height="36"></a>
+      <nav class="site-nav" aria-label="Sections"><a href="#about">About</a>${chapters.map(item => item.nav).join('')}</nav>
       ${cvs ? `<nav class="cv-nav" aria-label="Curriculum vitae">${cvs}</nav>` : ''}
       ${toneControl}
     </div>
@@ -254,7 +260,7 @@ export function renderSite(site) {
     </aside>
     <main>
       <section class="intro" id="about" aria-labelledby="about-title">
-        <h2 id="about-title">About me</h2>
+        <h2 id="about-title">About${emoji('👋')}</h2>
         <div class="bio">${site.bio.map(paragraph => '<p>' + escapeText(paragraph) + '</p>').join('')}</div>
         <p class="contact">Feel free to email me at ${email}.</p>
       </section>

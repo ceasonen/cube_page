@@ -1,6 +1,6 @@
 # Cube Page
 
-A single-page academic homepage with a paper list, short news archive and room for projects. The [live edition](https://ceasonen.github.io/cube_page/) uses Cheng Chen’s public academic profile and Rubik’s Cube photograph.
+A single-page academic homepage with a paper list, scrollable news panel and room for projects. The [live edition](https://ceasonen.github.io/cube_page/) uses Cheng Chen’s public academic profile and Rubik’s Cube photograph.
 
 ![Desktop preview showing the profile, introduction, news, and experience](docs/preview.jpg)
 
@@ -27,16 +27,16 @@ Open `http://localhost:8000/`. Open `dist/index.html` directly if you only want 
 | Type, spacing and visual styles | `public/style.css` |
 | HTML structure | `src/render.mjs` |
 
-Dates in the news and writing arrays use `YYYY-MM-DD`. News is displayed in the order given, with the first four entries visible. Empty sections are omitted from the page and navigation. Set the site URL in the content file to the address where your copy is hosted.
+Dates in the news and writing arrays use `YYYY-MM-DD`. News is sorted newest first in a scrollable panel. A news entry can include an optional `emoji`. Writing stays visible when empty. Talks and reports appear once they have entries. Set the site URL in the content file to the address where your copy is hosted.
 
 The included workflow builds and tests the site before publishing. In a new repository, select **Settings → Pages → GitHub Actions** as the publishing source. The workflow publishes the `dist/` directory and supports a repository subpath.
 
 The hue dial adjusts the accent, rules and page background. Visitors can drag it or use the arrow keys on the Hue control. The setting stays in their browser, with a reset button in the panel.
 
-The example’s Writing avatar is [Usagi from the official Chiikawa anime site](https://www.anime-chiikawa.jp/). Replace `writingAvatar` in `content/site.json` with your own image for a different site. Character artwork belongs to its respective rights holders.
+The example’s Writing avatar is [Usagi from the official Chiikawa anime site](https://www.anime-chiikawa.jp/). Replace `writingAvatar` in `content/site.json` with an image for your own site. Character artwork belongs to its respective rights holders.
 
 ## Design references
 
-[WowPage](https://github.com/WD7ang/WowPage) by Weidong Tang and Yue Su informed the section structure and the split between content and templates. The visual reference was [Weidong Tang’s homepage](https://wd7ang.github.io/), especially its dated updates, institutional marks and publication thumbnails. [Nielsen Norman Group’s visual hierarchy guidance](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/) informed the type scale and section spacing. The body type retains the original Homepage’s Nunito, with Caveat reserved for the introduction heading. The prose uses a constrained measure following the [W3C guidance on reflow and readability](https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation).
+[WowPage](https://github.com/WD7ang/WowPage) by Weidong Tang and Yue Su informed the section structure and the split between content and templates. The visual reference was [Weidong Tang’s homepage](https://wd7ang.github.io/), especially its dated updates, institutional marks and publication thumbnails. [Nielsen Norman Group’s visual hierarchy guidance](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/) informed the type scale and section spacing. Outfit is used for research and navigation, Caveat for the name and section headings, and Comic Neue for the introduction. The prose uses a constrained measure following the [W3C guidance on reflow and readability](https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation).
 
-The source code is MIT licensed. Nunito and Caveat are distributed with their [OFL notices](public/fonts/). Replace the profile photograph, paper illustrations, institutional marks and social icons with assets you can use on your own site.
+The source code is MIT licensed. Outfit, Comic Neue, and Caveat are distributed with their [OFL notices](public/fonts/). Replace the profile photograph, paper illustrations, institutional marks and social icons with assets you can use on your own site.
