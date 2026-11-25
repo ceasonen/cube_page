@@ -1,0 +1,368 @@
+{
+  "name": "Cheng Chen",
+  "url": "https://ceasonen.github.io/cube_page/",
+  "description": "Cheng Chen, a Communication Engineering undergraduate at Tongji University working on multimodal AI.",
+  "affiliation": "Tongji University",
+  "college": "College of Electronic and Information Engineering",
+  "affiliationUrl": "https://www.tongji.edu.cn/",
+  "location": "Shanghai, China",
+  "portrait": {
+    "src": "images/cube.jpg",
+    "alt": "A Rubik’s Cube with yellow, blue and red faces"
+  },
+  "email": "chenceason10@gmail.com",
+  "bio": [
+    "I’m an undergraduate student majoring in Communication Engineering. I expect to graduate in June 2027.",
+    "My research looks for simple ways to improve how AI models learn and run. I work on multimodal models and image/video generation, and I’m interested in AI infrastructure and reinforcement learning for embodied agents."
+  ],
+  "cvs": [
+    {
+      "label": "CV (EN)",
+      "lang": "en",
+      "url": "https://ceasonen.github.io/cv/cheng-chen-cv.pdf?v=20261124-orthkd"
+    },
+    {
+      "label": "CV (ZH)",
+      "lang": "zh",
+      "url": "https://ceasonen.github.io/cv/cheng-chen-cv-zh.pdf?v=20261124-orthkd"
+    }
+  ],
+  "social": [
+    {
+      "label": "Google Scholar",
+      "icon": "scholar",
+      "url": "https://scholar.google.com/citations?user=X92zQ68AAAAJ&hl=zh-CN"
+    },
+    {
+      "label": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/ceasonen"
+    },
+    {
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "url": "https://www.linkedin.com/in/cheng-chen-012a83378/"
+    },
+    {
+      "label": "Twitter",
+      "icon": "x",
+      "url": "https://x.com/CeasonC87891"
+    },
+    {
+      "label": "RedNote",
+      "icon": null,
+      "url": "https://www.xiaohongshu.com/user/profile/6587c475000000003d037c4f",
+      "image": "images/social/rednote.ico"
+    }
+  ],
+  "news": [
+    {
+      "date": "2026-11-12",
+      "text": "I was the sole recipient of the **BULL Scholarship** for **2025–2026**, CEIE’s highest-value scholarship."
+    },
+    {
+      "date": "2026-07-29",
+      "text": "Our team received the **National First Prize** in the **China Robot and Artificial Intelligence Competition**."
+    },
+    {
+      "date": "2026-07-10",
+      "text": "Our paper, **OV-OrthKD**, was accepted at **ACM MM 2026**. I am a co-first author."
+    },
+    {
+      "date": "2026-04-20",
+      "text": "Our paper, **OrthKD**, was accepted at **IJCAI 2026**. I am a co-first author."
+    },
+    {
+      "date": "2026-03-15",
+      "text": "Our paper, **DeepYOLO**, was accepted to **IJCNN 2026**. I am the corresponding author."
+    },
+    {
+      "date": "2025-12-25",
+      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2024–2025 academic year."
+    },
+    {
+      "date": "2025-12-20",
+      "text": "Our team received the **National Second Prize** in the **Global Campus Artificial Intelligence Algorithm Elite Competition**."
+    },
+    {
+      "date": "2025-12-15",
+      "text": "Our team received the **National Third Prize** in the **National Undergraduate Embedded Chip and System Design Competition**."
+    },
+    {
+      "date": "2025-11-20",
+      "text": "Our team received the **Provincial Third Prize** in the **Contemporary Undergraduate Mathematical Contest in Modeling**."
+    },
+    {
+      "date": "2025-11-15",
+      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**."
+    },
+    {
+      "date": "2025-06-15",
+      "text": "Our team received the **Provincial Third Prize** in the **National College Student Statistical Modeling Competition**."
+    },
+    {
+      "date": "2024-12-20",
+      "text": "I received the **Tongji University Outstanding Student Scholarship (Second Class)** for the 2023–2024 academic year."
+    },
+    {
+      "date": "2024-11-15",
+      "text": "I received the **Provincial Second Prize** in **The Chinese Mathematics Competitions**."
+    }
+  ],
+  "education": [
+    {
+      "name": "Tongji University",
+      "role": "B.Eng. in Communication Engineering",
+      "date": "Sep. 2023 – Jun. 2027 (expected)",
+      "note": "Major rank: 2/85",
+      "logo": "images/marks/tongji-university.png",
+      "url": "https://www.tongji.edu.cn/"
+    }
+  ],
+  "internships": [
+    {
+      "name": "HKUST-GZ",
+      "role": "Research Intern",
+      "date": "Sep. 2026 – Present",
+      "logo": "images/marks/hkust-gz-icon.png",
+      "url": "https://www.hkust-gz.edu.cn/"
+    },
+    {
+      "name": "Zhejiang University",
+      "role": "Research Intern",
+      "date": "Jun. 2026 – Sep. 2026",
+      "logo": "images/marks/zju-university.png",
+      "url": "https://www.zju.edu.cn/"
+    },
+    {
+      "name": "Tongji University",
+      "role": "Research Intern",
+      "date": "Oct. 2025 – Jun. 2026",
+      "logo": "images/marks/tongji-university.png",
+      "url": "https://www.tongji.edu.cn/"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Auditing Transfer from Visual QA to Image Generation",
+      "description": "Paired counting and spatial evaluations across six unified multimodal models.",
+      "url": "https://ceasonen.github.io/umm_audit/",
+      "code": "https://github.com/ceasonen/umm_audit"
+    },
+    {
+      "name": "Image2Other",
+      "description": "A local-first image conversion studio with editable SVG paths and native PowerPoint exports.",
+      "url": "https://ceasonen.github.io/Image2Other/",
+      "code": "https://github.com/ceasonen/Image2Other"
+    },
+    {
+      "name": "Paper Radar",
+      "description": "A daily arXiv browser for AI research with topic filters, searchable abstracts, and a reading list with direct PDF links.",
+      "url": "https://ceasonen.github.io/arxiv_paper_ai/",
+      "code": "https://github.com/ceasonen/arxiv_paper_ai"
+    },
+    {
+      "name": "AutoSearch AI",
+      "description": "Citation-aware AI search with an arXiv paper radar and an integrated PDF reader.",
+      "url": "https://ceasonen.github.io/deep-research/",
+      "code": "https://github.com/ceasonen/deep-research"
+    },
+    {
+      "name": "OfferPilot",
+      "description": "An AI technical-interview practice app with follow-up questions and structured feedback.",
+      "url": "https://ceasonen.github.io/offer-pilot/",
+      "code": "https://github.com/ceasonen/offer-pilot"
+    },
+    {
+      "name": "FPGA Algorithm Optimization",
+      "description": "Vitis HLS algorithm optimization for the AMD FPGA competition track on a Zynq-7000 target.",
+      "url": "https://ceasonen.github.io/fpga-optimization/",
+      "code": "https://github.com/ceasonen/hlstrack2025-44686"
+    },
+    {
+      "name": "Research Skills",
+      "description": "A maintained collection of reusable workflow skills for computer science and electrical engineering research.",
+      "url": "https://ceasonen.github.io/research-skills/",
+      "code": "https://github.com/ceasonen/research-skills"
+    }
+  ],
+  "awards": [
+    {
+      "date": "2025–26",
+      "name": "BULL Scholarship",
+      "prize": "CEIE’s highest-value scholarship, awarded to a single student across the college",
+      "logo": "images/marks/bull.png",
+      "lead": false
+    },
+    {
+      "date": "2026",
+      "name": "China Robot and Artificial Intelligence Competition",
+      "prize": "National First Prize",
+      "logo": "images/marks/craic.png",
+      "lead": true
+    },
+    {
+      "date": "2025",
+      "name": "Global Campus Artificial Intelligence Algorithm Elite Competition",
+      "prize": "National Second Prize",
+      "logo": "images/marks/aic.png",
+      "lead": true
+    },
+    {
+      "date": "2025",
+      "name": "National Undergraduate Embedded Chip and System Design Competition",
+      "prize": "National Third Prize",
+      "logo": "images/marks/socchina.png",
+      "lead": true
+    },
+    {
+      "date": "2025",
+      "name": "Contemporary Undergraduate Mathematical Contest in Modeling",
+      "prize": "Provincial Third Prize",
+      "logo": "images/marks/cumcm.png",
+      "lead": true
+    },
+    {
+      "date": "2025",
+      "name": "National College Student Statistical Modeling Competition",
+      "prize": "Provincial Third Prize",
+      "logo": "images/marks/statistical-modeling-competition.png",
+      "lead": true
+    },
+    {
+      "date": "2024–25",
+      "name": "The Chinese Mathematics Competitions",
+      "prize": "Provincial Second Prize",
+      "logo": "images/marks/chinese-mathematical-society.png",
+      "lead": false
+    },
+    {
+      "date": "2023–25",
+      "name": "Tongji University Outstanding Student Scholarship",
+      "prize": "Second-Class Scholarship",
+      "logo": "images/marks/tongji-university.png",
+      "lead": false
+    }
+  ],
+  "publications": [
+    {
+      "title": "If You Hear It, Help Find It: Orthogonal Knowledge Distillation for Open-Vocabulary Audio-Visual Event Localization",
+      "venue": "ACM MM 2026",
+      "preprint": false,
+      "authors": [
+        "Yi Xu*‡",
+        "Cheng Chen*",
+        "Wenzhuo Lei†"
+      ],
+      "image": "images/papers/mm.png",
+      "abstract": "We study open-vocabulary audio-visual event localization when visual and audio teachers differ in reliability. OV-OrthKD places their supervision in separate orthogonal feature paths and uses text prototypes for open-vocabulary transfer.",
+      "links": [
+        {
+          "label": "PDF",
+          "url": "https://arxiv.org/pdf/2609.23376"
+        },
+        {
+          "label": "DOI",
+          "url": "https://doi.org/10.1145/3767308.3835302"
+        },
+        {
+          "label": "Project",
+          "url": "https://github.com/ScottBlizzard/OV-OrthKD"
+        }
+      ],
+      "imageAlt": "Audio and visual teachers supervise separate feature paths in OV-OrthKD."
+    },
+    {
+      "title": "OrthKD: Extracting Generalized Clinical Knowledge from Heterogeneous Teachers for Lightweight Deployment",
+      "venue": "IJCAI 2026",
+      "preprint": false,
+      "authors": [
+        "Yi Xu*†",
+        "Cheng Chen*‡",
+        "Mufan Cao"
+      ],
+      "image": "images/papers/orthkd.png",
+      "abstract": "OrthKD combines decision supervision from a CNN with complementary visual features from a Transformer. Orthogonal projections keep these signals separate as they train a 5.4M-parameter MobileNetV3 student for diabetic retinopathy screening.",
+      "links": [
+        {
+          "label": "PDF",
+          "url": "https://arxiv.org/pdf/2607.25545v1"
+        },
+        {
+          "label": "IJCAI",
+          "url": "https://ijcai.org/proceedings/2026/774"
+        },
+        {
+          "label": "DOI",
+          "url": "https://doi.org/10.24963/ijcai.2026/774"
+        },
+        {
+          "label": "Code",
+          "url": "https://github.com/ScottBlizzard/orthkd-dr-screening"
+        }
+      ],
+      "imageAlt": "A CNN and a Transformer guide a lightweight student through complementary feature paths."
+    },
+    {
+      "title": "Enabling Visual Reasoning in Text-Only LLMs via Symbolic Scene Descriptions",
+      "venue": "IJCNN 2026",
+      "preprint": false,
+      "authors": [
+        "Wenzhuo Lei",
+        "Mufan Cao",
+        "Chaorong Ye",
+        "Yi Xu",
+        "Cheng Chen†‡"
+      ],
+      "image": "images/papers/symbolic_visual_reasoning.png",
+      "abstract": "We convert images into grammar-constrained scene descriptions for text-only LLMs. On a stratified 5,000-image VQAv2 subset, DeepYOLO reaches 42.3% accuracy using 1/2.5 as many prompt tokens as the scene-graph baseline.",
+      "links": [
+        {
+          "label": "PDF",
+          "url": "https://ceasonen.github.io/assets/papers/deepyolo-ijcnn-2026.pdf"
+        },
+        {
+          "label": "DOI",
+          "url": "https://doi.org/10.1109/IJCNN69854.2026.11729294"
+        }
+      ],
+      "imageAlt": "The system converts an image into a structured scene description for a text-only language model."
+    },
+    {
+      "title": "CINEMA: Preserving the Rhythm of Image Editing",
+      "venue": "Preprint 2026 · Submitted to CVPR 2027",
+      "preprint": true,
+      "authors": [
+        "Cheng Chen‡",
+        "Yi Xu",
+        "Wenzhuo Lei",
+        "Mufan Cao",
+        "Kaibo Zheng",
+        "Wencheng Ye",
+        "Tianyi Wang",
+        "Weidong Wu",
+        "Zhiyuan Cao†"
+      ],
+      "image": "images/papers/cinema.png",
+      "abstract": "Training-free image editing for frozen diffusion/flow models across multi-step, few-step, and one-step inference. A closed-form coupling rule preserves paired-state geometry, with exact composition and minimum-displacement properties for the interaction. Cross-backbone ablations, source-paired assessments, and complete first-edit cost measurements evaluate preservation, instruction completion, and efficiency across five benchmarks.",
+      "links": [],
+      "imageAlt": "Examples of image editing with CINEMA and an overview of the paired-state method."
+    }
+  ],
+  "reviewer": [
+    "ICLR(2027)",
+    "AAAI(2027)",
+    "ICME(2026)",
+    "IJCNN(2026,2027)",
+    "PRCV(2026)"
+  ],
+  "talks": [],
+  "reports": [],
+  "writing": [
+    {
+      "title": "Acknowledgement",
+      "date": "2026-03-17",
+      "url": "https://ceasonen.github.io/2026/03/17/acknowledgement.html"
+    }
+  ]
+}
